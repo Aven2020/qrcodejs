@@ -1,9 +1,9 @@
 修改供uni-app使用
 
-用法：
-template:
+# 用法：
+## template:
 <canvas canvas-id="qrcode" style="width: 300px; height: 300px"/>
-js:
+##js:
 import {UniQRCode} from '../../static/js/qrcode.js'
 const qrctx = uni.createCanvasContext('qrcode',this)
 let qrcode = new UniQRCode("http://jindo.dev.naver.com/collie");
