@@ -611,4 +611,81 @@ var QRCode;
 	 * @name QRCode.CorrectLevel
 	 */
 	QRCode.CorrectLevel = QRErrorCorrectLevel;
+	
+		/**
+	 * UniQRCode
+	 */
+	UniQRCode = function(option) {
+		this.defaultOption = {
+			width: 256,
+			height: 256,
+			typeNumber: 4,
+			colorDark: "#000000",
+			colorLight: "#ffffff",
+			correctLevel: QRErrorCorrectLevel.H
+		};
+		if (typeof option === 'string') {
+			option = {
+				text: option
+			};
+		}
+		if (option) { // override
+			for (var i in option) {
+				this.defaultOption[i] = option[i];
+			}
+		}
+		this.model = new QRCodeModel(_getTypeNumber(this.defaultOption.text, this.defaultOption.correctLevel), this.defaultOption.correctLevel);
+		this.model.addData(this.defaultOption.text);
+		this.model.make();	
+	};
+		/**
+	 * draw on the context
+	 * ctx  uni canvas context
+	 */
+	UniQRCode.prototype.draw = function(ctx) {
+		var _oContext = ctx;
+		console.log(_oContext)
+		var _htOption = this.defaultOption;
+		var oQRCode = this.model;
+		var nCount = oQRCode.getModuleCount();
+		var nWidth = _htOption.width / nCount;
+		var nHeight = _htOption.height / nCount;
+		var nRoundedWidth = Math.round(nWidth);
+		var nRoundedHeight = Math.round(nHeight);
+		console.log(nRoundedWidth)
+		console.log(nRoundedHeight)
+		for (var row = 0; row < nCount; row++) {
+			for (var col = 0; col < nCount; col++) {
+				var bIsDark = oQRCode.isDark(row, col);
+				var nLeft = col * nWidth;
+				var nTop = row * nHeight;
+				var strokeStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;
+				ctx.setStrokeStyle(strokeStyle)
+				ctx.setLineWidth(1);
+				
+				var fillStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;
+				ctx.setFillStyle(fillStyle)
+				_oContext.fillRect(nLeft, nTop, nWidth, nHeight);
+				console.log(`fillRect ${nLeft} ${nTop} ${nWidth} ${nHeight}`)
+				_oContext.strokeRect(
+					Math.floor(nLeft) + 0.5,
+					Math.floor(nTop) + 0.5,
+					nRoundedWidth,
+					nRoundedHeight
+				);
+	
+				_oContext.strokeRect(
+					Math.ceil(nLeft) - 0.5,
+					Math.ceil(nTop) - 0.5,
+					nRoundedWidth,
+					nRoundedHeight
+				);
+			}
+		}
+		ctx.draw()
+	};
 })();
+var UniQRCode;
+export {
+	UniQRCode
+}
