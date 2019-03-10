@@ -652,8 +652,8 @@ var QRCode;
 		var nHeight = _htOption.height / nCount;
 		var nRoundedWidth = Math.round(nWidth);
 		var nRoundedHeight = Math.round(nHeight);
-		console.log(nRoundedWidth)
-		console.log(nRoundedHeight)
+		
+		
 		for (var row = 0; row < nCount; row++) {
 			for (var col = 0; col < nCount; col++) {
 				var bIsDark = oQRCode.isDark(row, col);
@@ -666,7 +666,7 @@ var QRCode;
 				var fillStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;
 				ctx.setFillStyle(fillStyle)
 				_oContext.fillRect(nLeft, nTop, nWidth, nHeight);
-				console.log(`fillRect ${nLeft} ${nTop} ${nWidth} ${nHeight}`)
+				
 				_oContext.strokeRect(
 					Math.floor(nLeft) + 0.5,
 					Math.floor(nTop) + 0.5,
