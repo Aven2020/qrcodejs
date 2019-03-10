@@ -1,3 +1,14 @@
+修改供uni-app使用
+
+用法：
+template:
+<canvas canvas-id="qrcode" style="width: 300px; height: 300px"/>
+js:
+import {UniQRCode} from '../../static/js/qrcode.js'
+const qrctx = uni.createCanvasContext('qrcode',this)
+let qrcode = new UniQRCode("http://jindo.dev.naver.com/collie");
+qrcode.draw(qrctx)
+
 # QRCode.js
 QRCode.js is javascript library for making QRCode. QRCode.js supports Cross-browser with HTML5 Canvas and table tag in DOM.
 QRCode.js has no dependencies.
